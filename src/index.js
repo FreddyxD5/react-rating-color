@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
+export const ColorContext = createContext();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <ColorContext.Provider>
     <App />
-  </React.StrictMode>
+  </ColorContext.Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
