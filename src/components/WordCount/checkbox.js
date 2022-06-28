@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 
 
 function Checkbox(){
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useReducer(checked=>!checked, false);
+    
+
+    function toggle(){
+        setChecked(checked=>!checked)
+    }
 
     useEffect (()=>{
         alert(`checked ${checked.toString()}`)
@@ -17,7 +22,7 @@ function Checkbox(){
             <input
                 type="checkbox"
                 value = {checked}
-                onChange = {()=>setChecked(checked=> !checked)}
+                onChange = {toggle}
             />
             {checked ? "checked":"not checked"}
         </>

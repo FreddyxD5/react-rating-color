@@ -1,10 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-import React, { useEffect, useState } from 'react';
-import colorData from './data/color-data.json'
-import ColorList from './components/color/ColorList'
-import AddColorForm from './components/color/AddColorForm';
-import {v4} from "uuid"
+import React, { useEffect, useState, useLayoutEffect } from 'react';
+import useAnyKeyToRender from "./components/hooks/force-render-hooks"
+import WordCount from "./components/WordCount/WordCount"
+import Cat from "./components/Cat"
+import { PureCat } from './components/Cat';
+// import colorData from './data/color-data.json'
+// import ColorList from './components/color/ColorList'
+// import AddColorForm from './components/color/AddColorForm';
+// import {v4} from "uuid"
 
 
 
@@ -18,45 +22,40 @@ import {v4} from "uuid"
 //     )
 // }
 
+// function App(){  
+//   useAnyKeyToRender();
+
+  
+//   useEffect(()=>{
+//     console.log("Fresh render xd")
+//   },[words])
+
+//   return (
+//     <h1>Open the console</h1>
+//   )
+// }
+
+// function App(){
+//   return (
+//     <>
+//       <WordCount>I know the time goes by</WordCount> 
+//     </>
+//   )
+// }
 function App(){
-  const [val, set] = useState("");
-  const [phrase, setPhrase] = useState("Example Phrase");
-
-  const createPhrase = () => {
-    setPhrase(val);
-    set("");
-  };  
-
-  useEffect(() => {
-    console.log(`Typing ${val}`) 
-  },[val])
-
-  useEffect(()=>{
-    console.log(`saved phrase: ${phrase}`)
-  },[phrase])
-
-  useEffect(()=>{
-    console.log("Only once after initial state render")
-  }, [])
-
-  useEffect(()=>{
-    welcomeChime.play();
-    return ()=> goodbyeChime.play();
-  },[])
-
+  const [cats, setCats] = useState(["Biscuit","Jungle","Outlaw"])
   return (
     <>
-      <label>Favorite Phrase</label>
-      <input 
-        value={val}
-        placeholder={phrase}
-        onChange = {e => set(e.target.value)}
-      />
-
-      <button onClick={createPhrase}>send</button>
+    {cats.map((name,i)=>(
+      <PureCat key={i} name={name} meow={name=>console.log(`${name} has meowed`)}/>
+    ))}
+    <button onClick={()=>setCats([...cats, prompt("Name a Cat")])}>
+      Add a Cat
+    </button>
     </>
   )
-  
+
+
 }
 
-export default App;
+export default App; 
